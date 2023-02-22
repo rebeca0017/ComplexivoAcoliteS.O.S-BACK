@@ -24,3 +24,5 @@ class Cliente extends Model
     }
 
 }
+
+//hasta ahi
