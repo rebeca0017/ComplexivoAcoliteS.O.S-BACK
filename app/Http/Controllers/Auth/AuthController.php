@@ -9,18 +9,22 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
     public function Register(Request $request){
-        
-        $user=User::create(['email'=>$request->email,'password'=>bcrypt($request->password),'name'=>$request->name]);
-
+         DB::transaction(
+                function () use ($request) {
+                    $user = User::create([
+                        'email'=>$request->email,
+                        'password'=>bcrypt($request->password),
+                        'name'=>$request->name]);
+                    $user->assignRole($request->role);
+            }
+        );
         return new JsonResponse([
             'status' => 'success',
-            'data' => [
-                'users' => $user
-            ],
             'message' => 'Registro Exitoso'
         ], 200);
     }

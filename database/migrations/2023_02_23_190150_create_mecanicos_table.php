@@ -15,15 +15,14 @@ return new class extends Migration
     {
         Schema::create('mecanicos', function (Blueprint $table) {
         $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->text('descripcion')->nullable();
-            $table->string('disponibilidad')->nullable();
+        
+        $table->unsignedBigInteger('id_user'); 
+        $table->foreign('id_user')->references('id')->on('users')->onUpdate('cascade');
+        
+        $table->text('descripcion')->nullable();
+        $table->string('disponibilidad')->nullable();
 
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade');
-
-            $table->rememberToken();
-            $table->timestamps();
-
+        $table->timestamps();
         });
     }
 

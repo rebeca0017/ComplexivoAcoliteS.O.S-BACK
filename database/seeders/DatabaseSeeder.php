@@ -5,7 +5,6 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Cliente;
-use App\Models\TipoIdentificacion;
 use App\Models\TipoVehiculo;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -22,19 +21,13 @@ class DatabaseSeeder extends Seeder
         //Roles y Permisos
         $this->call(RoleSeeder::class);
         //usuario
-        $this->call(UserSeeder::class);
+        /* $this->call(UserSeeder::class); */
         //Usuarios para empezar 
-        User::factory(10)->create()->each(function($user){
+       /*  User::factory(10)->create()->each(function($user){
             $user->assignRole('mecanico');
         });
     
-
-        TipoIdentificacion::factory()->create(['nombre'=>'cedula']);
-        TipoIdentificacion::factory()->create(['nombre'=>'pasaporte']);
-        TipoIdentificacion::factory()->create(['nombre'=>'ruc']);
-        
-
-        Cliente::factory(10)->create();
+        Cliente::factory(10)->create(); */
 
         TipoVehiculo::factory()->create(['nombre'=>'moto']);
         TipoVehiculo::factory()->create(['nombre'=>'auto']);

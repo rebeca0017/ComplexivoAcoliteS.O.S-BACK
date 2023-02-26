@@ -15,11 +15,12 @@ return new class extends Migration
     {
         Schema::create('clientes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            
+            $table->unsignedBigInteger('id_user');
+            $table->foreign('id_user')->references('id')->on('users')->onUpdate('cascade');
+
             $table->string('estado');
 
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade');
-            $table->rememberToken();
             $table->timestamps();
         });
     }

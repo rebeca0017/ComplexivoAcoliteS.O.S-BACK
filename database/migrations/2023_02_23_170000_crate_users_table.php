@@ -13,17 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('detalle_pedido', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_vehiculo');
-            $table->string('ubicacion');
-            $table->string('detalles')->nullable();
-            $table->rememberToken();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->string('nombres')->nullable();
+            $table->string('apellidos')->nullable();
+            $table->string('contacto')->nullable();
+
             $table->timestamps();
-            
-            $table->foreign('id_vehiculo')->references('id')->on('vehiculos')->onUpdate('cascade');
         });
-    }
+        }
 
     /**
      * Reverse the migrations.
@@ -32,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detalle_pedido');
+        Schema::dropIfExists('users');
     }
 };

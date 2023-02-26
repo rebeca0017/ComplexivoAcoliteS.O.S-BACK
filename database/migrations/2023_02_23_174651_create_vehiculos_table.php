@@ -16,23 +16,23 @@ return new class extends Migration
         Schema::create('tipo_vehiculos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre',50);
-            $table->rememberToken();
             $table->timestamps();
     });
 
         Schema::create('vehiculos', function (Blueprint $table) {
             $table->id();
-            $table->string('marca',30);
             $table->string('placa',10);
+            $table->string('marca',30);
+            $table->string('modelo');
             $table->string('color',20)->nullable();
-            $table->integer('modelo')->nullable();
-            $table->unsignedBigInteger('id_users');
+            
+            $table->unsignedBigInteger('id_user');
+            $table->foreign('id_user')->references('id')->on('users')->onUpdate('cascade');
+            
             $table->unsignedBigInteger('tipo_vehiculo');
-            $table->rememberToken();
-            $table->timestamps();
-
-           
             $table->foreign('tipo_vehiculo')->references('id')->on('tipo_vehiculos')->onUpdate('cascade');
+
+            $table->timestamps();
     });
     }
 

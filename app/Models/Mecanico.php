@@ -13,7 +13,6 @@ class Mecanico extends Model
     {
         return $this->belongsTo(User::class);
     }
-
     public function pedidos()
     {
         return $this->hasMany(Pedido::class);

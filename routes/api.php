@@ -8,6 +8,7 @@ use App\Http\Controllers\DetallePedidoController;
 use App\Http\Controllers\MecanicoController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\VehiculoController;
+use App\Http\Controllers\RolesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,34 +20,45 @@ use App\Http\Controllers\VehiculoController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+//RUTAS ABIERTAS
 Route::prefix('auth')->group(function () {
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/register', [AuthController::class, 'register']);
 });
 
+//RUTAS DE ROLES
+Route::prefix('roles')->group(function () {
+    Route::get('/', [RolesController::class, 'getRoles']);
+});
 
-//RUTAS DEL CLIENTE
+//RUTAS PROTEGIDAS
+Route::middleware('auth')->group(function () {
+    //RUTA DE MECANICO 
+    Route::prefix('mecanico')->group(function () {
+        Route::put('/update/{id}', [MecanicoController::class, 'update']);
+    });
+     //RUTA DE CLIENTE 
+    Route::prefix('cliente')->group(function () {
+        Route::put('/update/{id}', [ClienteController::class, 'update']);
+    });
 
-//RUTAS DEL MECANICO
+    //RUTAS DE LOS VEHICULOS
+    Route::prefix('vehiculos')->group(function () {
+        Route::get('/', [VehiculoController::class, 'getVehiculos'])->middleware('permission:LEER_VEHICULOS');
+        Route::get('/{id}', [VehiculoController::class, 'getVehiculo'])->middleware('permission:LEER_VEHICULOS');
+        Route::post('/create', [VehiculoController::class, 'createVehiculo'])->middleware('permission:CREAR_VEHICULOS');
+        Route::put('/update/{id}', [VehiculoController::class, 'updateVehiculo'])->middleware('permission:ACTUALIZAR_VEHICULOS');
+        Route::delete('/delete/{id}', [VehiculoController::class, 'deleteVehiculo'])->middleware('permission:ELIMINAR_VEHICULOS');
+    });
 
-//RUTAS DE LOS VEHICULOS
-
-Route::get('/vehiculos', [VehiculoController::class, 'verVehiculos']);
-Route::post('/vehiculos', [VehiculoController::class, 'store']);
-Route::get('/vehiculos/edit/{id}', [VehiculoController::class, 'edit']);
-Route::put('/vehiculos/edit/{id}', [VehiculoController::class, 'update']);
-Route::delete('/cliente/vehiculo/delete/{id}', [VehiculoController::class, 'destroy'])-> middleware(['auth']);
-
-
-//RUTAS DEL PEDIDO CLIENTE
-Route::get('/pedido/cliente', [DetallePedidoController::class, 'verPedidos']);
-Route::post('/pedido/cliente', [DetallePedidoController::class, 'store']);
-Route::get('/pedido/cliente/edit/{id}', [DetallePedidoController::class, 'edit']);
-Route::put('/pedido/cliente/edit/{id}', [DetallePedidoController::class, 'update']);
-Route::delete('/pedido/cliente/delete/{id}', [DetallePedidoController::class, 'destroy']);
-
-
-//RUTA CLIENTE DASHBOARD
-Route::get('/cliente/dashboard',[ClienteController::class, 'vistaCliente']);
-Route::get('/cliente/dashboard/edit/{id}', [ClienteController::class, 'edit']);
-Route::put('/cliente/dashboard/edit/{id}', [ClienteController::class, 'update']);
+    //RUTAS DEL PEDIDO CLIENTE
+    Route::prefix('pedidos')->group(function () {
+        Route::get('/', [PedidoController::class, 'getPedidos'])->middleware('permission:LEER_PEDIDOS');
+        Route::get('/{id}', [PedidoController::class, 'getPedido'])->middleware('permission:LEER_PEDIDOS');
+        Route::get('/cliente/{id}', [PedidoController::class, 'getPedidoByCliente'])->middleware('permission:LEER_PEDIDOS');
+        Route::post('/create', [PedidoController::class, 'createPedido'])->middleware('permission:CREAR_PEDIDOS');
+        Route::put('/update/{id}', [PedidoController::class, 'updatePedido'])->middleware('permission:ACTUALIZAR_PEDIDOS');
+        Route::delete('/delete/{id}', [PedidoController::class, 'deletePedido'])->middleware('permission:ELIMINAR_PEDIDOS');
+    });
+});

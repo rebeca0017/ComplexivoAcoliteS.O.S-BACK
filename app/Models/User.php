@@ -59,8 +59,9 @@ class User extends Authenticatable implements JWTSubject
     }
 
 
-    ///////////// RELACIONES /////////
-
+    /**
+    * Relations
+    */
     public function role()
     {
         return $this->belongsTo(Role::class);
@@ -78,58 +79,5 @@ class User extends Authenticatable implements JWTSubject
     public function administrador()
     {
         return $this->hasOne(Administrador::class);
-    }
-
-
-    
-    public function isCliente()
-    {
-        $roles=DB::table('roles')->get();
-        $users=DB::table('users')->get();
-        foreach ($roles as $role)
-        {
-            foreach ($users as $user)
-            {
-                if ($this->email == $user->email &&
-                $user->id_rol == $role->id && $role->nombre == 'Cliente')
-                {
-                    return true;
-                }
-            }
-        }
-    }
-
-    public function isMecanico()
-    {
-        $roles=DB::table('roles')->get();
-        $users=DB::table('users')->get();
-        foreach ($roles as $role)
-        {
-            foreach ($users as $user)
-            {
-                if ($this->email == $user->email &&
-                $user->id_rol == $role->id && $role->nombre == 'Mecanico')
-                {
-                    return true;
-                }
-            }
-        }
-    }
-
-    public function isAdministrador()
-    {
-        $roles=DB::table('roles')->get();
-        $users=DB::table('users')->get();
-        foreach ($roles as $role)
-        {
-            foreach ($users as $user)
-            {
-                if ($this->email == $user->email &&
-                $user->id_rol == $role->id && $role->nombre == 'Administrador')
-                {
-                    return true;
-                }
-            }
-        }
     }
 }
