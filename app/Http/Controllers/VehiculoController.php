@@ -18,12 +18,10 @@ class VehiculoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function verVehiculos()
+    public function getVehiculos()
     {
-        $vehiculos = DB::table('vehiculos')
-        ->select('*')
-        ->get();
-       
+        $vehiculos = Vehiculo::where('id_user', auth()->user()->id)->get();
+
         return $vehiculos;
     }
 
@@ -37,9 +35,14 @@ class VehiculoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function createVehiculo(Request $request)
     {
-        //
+        $vehiculo = Vehiculo::create(array_merge($request->all(), ['id_user' => auth()->user()->id]));
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Vehiculo creado correctamente'
+        ], 200);
     }
 
     /**
@@ -54,7 +57,7 @@ class VehiculoController extends Controller
         $tipo_vehiculo = TipoVehiculo::latest('id')->first()->id;
 
         $datosVehiculo = new Vehiculo();
-        
+
         $datosVehiculo->id = $request->id;
         $datosVehiculo->marca = $request->marca;
         $datosVehiculo->placa = $request->placa;
@@ -75,7 +78,12 @@ class VehiculoController extends Controller
      */
     public function show($id)
     {
-        //
+        $perfilVehiculo = DB::table('vehiculos')
+            ->join('id', 'vehiculo.id_user', '=', 'clientes.user_id')
+            ->select('placa', 'marca', 'modelo', 'color')
+            ->where('id', '=', $id)
+            ->get();
+        return $perfilVehiculo;
     }
 
     /**
@@ -86,8 +94,12 @@ class VehiculoController extends Controller
      */
     public function edit($id)
     {
-        $vehiculo = Vehiculo::findOrFail($id);
-        return $vehiculo;
+        $perfilVehiculo = DB::table('vehiculos')
+            ->join('id', 'vehiculo.id_user', '=', 'clientes.user_id')
+            ->select('placa', 'marca', 'modelo', 'color')
+            ->where('id', '=', $id)
+            ->get();
+        return $perfilVehiculo;
     }
 
     /**
@@ -101,7 +113,6 @@ class VehiculoController extends Controller
     {
         $tipo_vehiculo = TipoVehiculo::latest('id')->first()->id;
         $vehiculo = Vehiculo::findOrFail($id);
-        
 
         $vehiculo->marca = $request->marca;
         $vehiculo->placa = $request->placa;

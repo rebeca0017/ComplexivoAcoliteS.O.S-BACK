@@ -29,10 +29,6 @@ class DatabaseSeeder extends Seeder
     
         Cliente::factory(10)->create(); */
 
-        TipoVehiculo::factory()->create(['nombre'=>'moto']);
         TipoVehiculo::factory()->create(['nombre'=>'auto']);
-        TipoVehiculo::factory()->create(['nombre'=>'camion']);
-        TipoVehiculo::factory()->create(['nombre'=>'camioneta']);
-        TipoVehiculo::factory()->create(['nombre'=>'buseta']);
     }
 }

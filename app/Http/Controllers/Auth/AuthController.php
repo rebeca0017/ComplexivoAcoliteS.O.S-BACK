@@ -14,14 +14,16 @@ use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
-    public function Register(Request $request){
-         DB::transaction(
-                function () use ($request) {
-                    $user = User::create([
-                        'email'=>$request->email,
-                        'password'=>bcrypt($request->password),
-                        'name'=>$request->name]);
-                    $user->assignRole($request->role);
+    public function Register(Request $request)
+    {
+        DB::transaction(
+            function () use ($request) {
+                $user = User::create([
+                    'email' => $request->email,
+                    'password' => bcrypt($request->password),
+                    'name' => $request->name
+                ]);
+                $user->assignRole($request->role);
             }
         );
         return new JsonResponse([
@@ -29,7 +31,8 @@ class AuthController extends Controller
             'message' => 'Registro Exitoso'
         ], 200);
     }
-    public function Login(Request $request){
+    public function Login(Request $request)
+    {
         try {
             $user = User::where('email', $request->email)->firstOrFail();
             if (!Hash::check($request->password, $user->password)) {
@@ -58,6 +61,21 @@ class AuthController extends Controller
                 'errors' => []
             ], 401);
         }
-    
+    }
+
+    public function getProfile()
+    {
+        try {
+            $user = JWTAuth::parseToken()->authenticate();
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => $e->getMessage()], 401);
+        }
+
+        return new JsonResponse([
+            'status' => 'success',
+            'data' => [
+                'user' => $user
+            ],
+        ], 200);
     }
 }

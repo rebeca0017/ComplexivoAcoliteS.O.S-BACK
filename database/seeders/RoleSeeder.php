@@ -32,5 +32,7 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'dashboard-admin'])->syncRoles([$admin]);
         Permission::create(['name' => 'editar-cliente'])->syncRoles([$cliente]);
         Permission::create(['name' => 'crear-vehiculo'])->syncRoles([$cliente]);
+        Permission::create(['name' => 'LEER_VEHICULOS'])->syncRoles([$cliente]);
+        
     }
 }

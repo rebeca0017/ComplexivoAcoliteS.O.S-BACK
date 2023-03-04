@@ -29,7 +29,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_user');
             $table->foreign('id_user')->references('id')->on('users')->onUpdate('cascade');
             
-            $table->unsignedBigInteger('tipo_vehiculo');
+            $table->unsignedBigInteger('tipo_vehiculo')->default(1);
             $table->foreign('tipo_vehiculo')->references('id')->on('tipo_vehiculos')->onUpdate('cascade');
 
             $table->timestamps();
@@ -43,7 +43,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo_vehiculos');
         Schema::dropIfExists('vehiculos');
+        Schema::dropIfExists('tipo_vehiculos');
+        
     }
 };

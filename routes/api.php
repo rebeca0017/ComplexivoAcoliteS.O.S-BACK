@@ -25,6 +25,7 @@ use App\Http\Controllers\RolesController;
 Route::prefix('auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/register', [AuthController::class, 'register']);
+    Route::get('/profile', [AuthController::class, 'getProfile']);
 });
 
 //RUTAS DE ROLES
@@ -33,7 +34,7 @@ Route::prefix('roles')->group(function () {
 });
 
 //RUTAS PROTEGIDAS
-Route::middleware('auth')->group(function () {
+Route::middleware('authentication')->group(function () {
     //RUTA DE MECANICO 
     Route::prefix('mecanico')->group(function () {
         Route::put('/update/{id}', [MecanicoController::class, 'update']);
@@ -47,8 +48,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('vehiculos')->group(function () {
         Route::get('/', [VehiculoController::class, 'getVehiculos'])->middleware('permission:LEER_VEHICULOS');
         Route::get('/{id}', [VehiculoController::class, 'getVehiculo'])->middleware('permission:LEER_VEHICULOS');
-        Route::post('/create', [VehiculoController::class, 'createVehiculo'])->middleware('permission:CREAR_VEHICULOS');
-        Route::put('/update/{id}', [VehiculoController::class, 'updateVehiculo'])->middleware('permission:ACTUALIZAR_VEHICULOS');
+        Route::post('/create', [VehiculoController::class, 'createVehiculo'])->middleware('permission:LEER_VEHICULOS');
+        Route::put('/update/{id}', [VehiculoController::class, 'updateVehiculo'])->middleware('permission:LEER_VEHICULOS');
         Route::delete('/delete/{id}', [VehiculoController::class, 'deleteVehiculo'])->middleware('permission:ELIMINAR_VEHICULOS');
     });
 
