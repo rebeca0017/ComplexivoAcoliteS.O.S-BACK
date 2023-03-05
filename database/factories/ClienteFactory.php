@@ -17,7 +17,7 @@ class ClienteFactory extends Factory
     public function definition()
     {
         return [
-            'user_id'=>$this->faker->randomElement([1,2,3,4,5,6,7,8,9,10]),
+            'id_user'=>$this->faker->randomElement([1,2,3,4,5,6,7,8,9,10]),
             'estado'=>'Activa'
         ];
     }

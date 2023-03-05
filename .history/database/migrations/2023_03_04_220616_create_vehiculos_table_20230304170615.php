@@ -26,10 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-<<<<<<< HEAD:.history/database/migrations/2023_02_23_190150_create_mecanico_table_20230223140552.php
-        Schema::dropIfExists('mecanico');
-=======
         Schema::dropIfExists('vehiculos');
->>>>>>> rebeca:.history/database/migrations/2023_03_04_220616_create_vehiculos_table_20230304170615.php
     }
 };
