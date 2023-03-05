@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 
-use App\Models\Pedido;
+use App\Models\DetallePedido;
 use App\Models\Vehiculo;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -52,7 +52,7 @@ class PedidoController extends Controller
         
         $id_vehiculo = Vehiculo::latest('id')->first()->id;
 
-        $datosPedido = new Pedido();
+        $datosPedido = new DetallePedido();
         
         $datosPedido->id = $request->id;
         $datosPedido->id_vehiculo = $id_vehiculo;
@@ -82,8 +82,7 @@ class PedidoController extends Controller
      */
     public function edit($id)
     {
-        $detalle_pedido = Pedido::findOrFail($id);
-        return $detalle_pedido;
+        //
     }
 
     /**
@@ -93,17 +92,9 @@ class PedidoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function updatePedido(Request $request, $id)
+    public function update(Request $request, $id)
     {
-        $id_vehiculo = Vehiculo::latest('id')->first()->id;
-        $detalle_pedido = Pedido::findOrFail($id);
-        
-
-        $detalle_pedido->id_vehiculo = $id_vehiculo;
-        $detalle_pedido->ubicacion = $request->ubicacion;
-        $detalle_pedido->detalles = $request->detalles;
-        $detalle_pedido->update();
-        return ('pedido editado con éxito');
+        //
     }
 
     /**
@@ -112,10 +103,8 @@ class PedidoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function deletePedido($id)
+    public function destroy($id)
     {
-        $eliminarPedido = Pedido::findOrFail($id);
-        $eliminarPedido->delete();
-        return ('pedido eliminado con exito');
+        //
     }
 }

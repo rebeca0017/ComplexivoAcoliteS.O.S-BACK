@@ -117,7 +117,6 @@ class ClienteController extends Controller
     $datosCliente->nombres = $request->nombres;
     $datosCliente->apellidos = $request->apellidos;
     $datosCliente->contacto = $request->contacto;
-    $datosCliente->cedula = $request->cedula;
 
     $datosCliente->save();
 

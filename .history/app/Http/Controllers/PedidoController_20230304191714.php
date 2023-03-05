@@ -114,8 +114,6 @@ class PedidoController extends Controller
      */
     public function deletePedido($id)
     {
-        $eliminarPedido = Pedido::findOrFail($id);
-        $eliminarPedido->delete();
-        return ('pedido eliminado con exito');
+        //
     }
 }

@@ -82,8 +82,6 @@ class ClienteController extends Controller
             ->join('tipo_identificacion', 'users.tipo_identificacion', '=', 'tipo_identificacion.id')
             ->select('name', 'email', 'nombres', 'apellidos', 'contacto', 'identificacion', 'clientes.estado', 'tipo_identificacion.nombre as tipo_identificacion')
             ->get();
-
-            return $perfilCliente;
     }
 
     /**
@@ -117,7 +115,6 @@ class ClienteController extends Controller
     $datosCliente->nombres = $request->nombres;
     $datosCliente->apellidos = $request->apellidos;
     $datosCliente->contacto = $request->contacto;
-    $datosCliente->cedula = $request->cedula;
 
     $datosCliente->save();
 

@@ -13,22 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pedido', function (Blueprint $table) {
+        Schema::create('detalle_pedido', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_user');
             $table->unsignedBigInteger('id_vehiculo');
-            $table->foreign('id_vehiculo')->references('id')->on('vehiculos')->onUpdate('cascade');
-
-            $table->unsignedBigInteger('id_cliente');
-            $table->foreign('id_cliente')->references('id')->on('clientes')->onUpdate('cascade');
-
-            $table->unsignedBigInteger('id_mecanico');
-            $table->foreign('id_mecanico')->references('id')->on('mecanicos')->onUpdate('cascade');
-
             $table->string('ubicacion');
-            $table->string('detalle')->nullable();
-
+            $table->string('detalles')->nullable();
+            $table->rememberToken();
             $table->timestamps();
+            
+            $table->foreign('id_user')->references('id')->on('users')->onUpdate('cascade'); 
+            $table->foreign('id_vehiculo')->references('id')->on('vehiculos')->onUpdate('cascade');
         });
     }
 
@@ -39,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pedido');
+        Schema::dropIfExists('detalle_pedido');
     }
 };

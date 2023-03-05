@@ -20,9 +20,11 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Alejandro',
             'email' => 'prueba@test.com',
+            'email_verified_at' => now(),
             'password' => Hash::make('password'),
             'nombres'=>'dylan alejandro',
             'apellidos'=>'lucio',
+            'remember_token' => Str::random(10),
             ])->assignRole('cliente');
 
             User::create([
