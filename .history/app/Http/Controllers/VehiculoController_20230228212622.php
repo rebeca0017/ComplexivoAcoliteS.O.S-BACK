@@ -18,18 +18,36 @@ class VehiculoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getVehiculos()
+    public function verVehiculos()
     {
-            $user = auth()->user();
-            $vehiculos = Vehiculo::where('id_users', $user->id)->get();
-
-        if ($vehiculos->isEmpty()) {
-            return response()->json(['message' => 'El usuario no tiene vehículos'], 200);
-        } else {
-            return response()->json(['vehiculos' => $vehiculos], 200);
-        }
+        $vehiculos = DB::table('getVehiculos')
+        ->select('*')
+        ->get();
+       
+        return $vehiculos;
     }
 
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function createVehiculo(Request $request)
     {
         $id_user = User::latest('id')->first()->id;
@@ -100,7 +118,7 @@ class VehiculoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function deleteVehiculo($id)
+    public function destroy($id)
     {
         $eliminarVehiculo = Vehiculo::findOrFail($id);
         $eliminarVehiculo->delete();

@@ -103,7 +103,7 @@ class PedidoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function deletePedido($id)
+    public function destroy($id)
     {
         //
     }

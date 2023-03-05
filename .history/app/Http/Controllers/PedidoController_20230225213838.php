@@ -18,7 +18,7 @@ class PedidoController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function getPedidos()
+     public function verPedidos()
      {
         $pedidos = DB::table('detalle_pedidos')
         ->select('*')
@@ -47,7 +47,7 @@ class PedidoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function createPedido(Request $request)
+    public function store(Request $request)
     {
         
         $id_vehiculo = Vehiculo::latest('id')->first()->id;
@@ -92,7 +92,7 @@ class PedidoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function updatePedido(Request $request, $id)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -103,7 +103,7 @@ class PedidoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function deletePedido($id)
+    public function destroy($id)
     {
         //
     }

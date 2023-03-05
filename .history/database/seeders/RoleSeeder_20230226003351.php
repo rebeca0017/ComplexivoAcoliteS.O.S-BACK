@@ -33,6 +33,5 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'editar-cliente'])->syncRoles([$cliente]);
         Permission::create(['name' => 'crear-vehiculos'])->syncRoles([$cliente]);
         Permission::create(['name' => 'ver-vehiculos'])->syncRoles([$cliente]);
-        Permission::create(['name' => 'borrar-vehiculos'])->syncRoles([$cliente]);
     }
 }
