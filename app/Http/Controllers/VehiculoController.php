@@ -20,7 +20,7 @@ class VehiculoController extends Controller
      */
     public function getVehiculos()
     {
-        $vehiculos = Vehiculo::where('id_user', auth()->user()->id)->get();
+        $vehiculos = Vehiculo::where('id_users', auth()->user()->id)->get();
 
         return $vehiculos;
     }
@@ -74,7 +74,7 @@ class VehiculoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function deleteVehiculo($id)
     {
         $eliminarVehiculo = Vehiculo::findOrFail($id);
         $eliminarVehiculo->delete();
