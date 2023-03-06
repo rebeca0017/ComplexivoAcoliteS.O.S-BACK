@@ -71,14 +71,10 @@ class MecanicoController extends Controller
         return response()->json($pedidos);
     }
 
-    public function aceptarPedido($idPedido, $idMecanico) {
+    public function aceptarPedido($idMecanico, $idPedido) {
         $pedido = Pedido::findOrFail($idPedido);
         $pedido->estado = 'aceptado';
         
-        if ($idMecanico != null) {
-            $mecanico = Mecanico::findOrFail($idMecanico);
-            $pedido->id_mecanico = $mecanico->id;
-        }
         
         $pedido->save();
         

@@ -25,13 +25,13 @@ return new class extends Migration
             $table->string('marca',30);
             $table->string('placa',10);
             $table->string('color',20)->nullable();
-            $table->integer('modelo')->nullable();
-            $table->unsignedBigInteger('id_users');
-            $table->unsignedBigInteger('tipo_vehiculo');
+            $table->string('modelo')->nullable();
+            $table->unsignedBigInteger('id_user');
+            $table->unsignedBigInteger('tipo_vehiculo')->default(1);
             
             $table->timestamps();
 
-            $table->foreign('id_users')->references('id')->on('users')->onUpdate('cascade');
+            $table->foreign('id_user')->references('id')->on('users')->onUpdate('cascade');
             $table->foreign('tipo_vehiculo')->references('id')->on('tipo_vehiculos')->onUpdate('cascade');
     });
     }
@@ -43,7 +43,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo_vehiculos');
         Schema::dropIfExists('vehiculos');
+        Schema::dropIfExists('tipo_vehiculos');
     }
 };

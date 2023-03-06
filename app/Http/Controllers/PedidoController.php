@@ -19,13 +19,14 @@ class PedidoController extends Controller
 
      public function getPedidos(Request $request)
         {
-            $clienteId = $request->user()->id;
-            $pedidos = Pedido::where('id_cliente', $clienteId)->get();
+            $pedidos = Pedido::where('estado','espera')->get();
             return $pedidos;
         }
-    public function index()
+
+    public function getPedidoByCliente()
     {
-        
+        $pedidos = Pedido::where('id_user', auth()->user()->id)->get();
+            return $pedidos;
     }
 
     
@@ -43,8 +44,7 @@ class PedidoController extends Controller
 
     // Creamos un nuevo pedido con los datos proporcionados
     $pedido = new Pedido();
-    $pedido->id_user = $request->user()->id;
-    $pedido->id_cliente = $request->user()->id;
+    $pedido->id_user = auth()->user()->id;
     $pedido->id_vehiculo = $request->id_vehiculo;
     $pedido->ubicacion = $request->ubicacion;
     $pedido->detalle = $request->detalle;

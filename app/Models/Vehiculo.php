@@ -26,6 +26,6 @@ class Vehiculo extends Model
 
     public function id_user()
     {
-        return $this->hasOne(User::class,'id_user');
+        return $this->hasOne(User::class,'id_users');
     }
 }

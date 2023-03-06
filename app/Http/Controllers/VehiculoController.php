@@ -20,7 +20,7 @@ class VehiculoController extends Controller
      */
     public function getVehiculos()
     {
-        $vehiculos = Vehiculo::where('id_users', auth()->user()->id)->get();
+        $vehiculos = Vehiculo::where('id_user', auth()->user()->id)->get();
 
         return $vehiculos;
     }
