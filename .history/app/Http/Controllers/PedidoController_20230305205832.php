@@ -45,14 +45,14 @@ class PedidoController extends Controller
     $pedido = new Pedido();
     $pedido->id_user = $request->user()->id;
     $pedido->id_cliente = $request->user()->id;
-    $pedido->id_vehiculo = $request->id_vehiculo;
+    $pedido->id_vehiculo = $vehiculo->id;
     $pedido->ubicacion = $request->ubicacion;
     $pedido->detalle = $request->detalle;
     $pedido->estado = 'espera';
     $pedido->save();
 
     // Devolvemos un mensaje de éxito y el ID del nuevo pedido
-    return $pedido;
+    return ('Pedido creado correctamente');
 }
 
     public function show($id)

@@ -16,13 +16,13 @@ return new class extends Migration
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_user');
-            $table->unsignedBigInteger('id_vehiculo')->nullable();
+            $table->unsignedBigInteger('id_vehiculo');
             $table->foreign('id_vehiculo')->references('id')->on('vehiculos')->onUpdate('cascade');
 
             $table->unsignedBigInteger('id_cliente')->nullable();
             $table->foreign('id_cliente')->references('id')->on('clientes')->onUpdate('cascade');
 
-            $table->unsignedBigInteger('id_mecanico')->nullable();
+            $table->unsignedBigInteger('id_mecanico');
             $table->foreign('id_mecanico')->references('id')->on('mecanicos')->onUpdate('cascade');
 
             $table->string('ubicacion');

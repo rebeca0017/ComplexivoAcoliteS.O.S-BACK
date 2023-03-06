@@ -39,7 +39,7 @@ Route::middleware('authentication')->group(function () {
     Route::prefix('mecanico')->group(function () {
         Route::put('/update/{id}', [MecanicoController::class, 'update']);
         Route::put('/{idPedido}/{idMecanico}/aceptar', [MecanicoController::class, 'aceptarPedido'])->middleware('permission:ACEPTAR_PEDIDOS');
-        Route::get('/pedidos', [MecanicoController::class, 'pedidosEsperando'])->middleware('permission:LEER_PEDIDOS');
+        Route::get('/pedidos', [MecanicoController::class, 'pedidosEspera'])->middleware('permission:LEER_PEDIDOS');
        
     });
      //RUTA DE CLIENTE 
@@ -67,3 +67,4 @@ Route::middleware('authentication')->group(function () {
     });
 });
 
+Route::get('/', [MecanicoController::class, 'hola']);

@@ -52,7 +52,7 @@ class PedidoController extends Controller
     $pedido->save();
 
     // Devolvemos un mensaje de éxito y el ID del nuevo pedido
-    return $pedido;
+    return ('Pedido creado correctamente');
 }
 
     public function show($id)

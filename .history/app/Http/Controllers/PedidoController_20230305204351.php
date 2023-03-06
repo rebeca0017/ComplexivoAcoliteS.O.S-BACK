@@ -37,22 +37,26 @@ class PedidoController extends Controller
    
     public function createPedido(Request $request)
 {
-   
+    $validatedData = $request->validate([
+        'ubicacion' => 'required|string',
+        'detalle' => 'nullable|string'
+    ]);
+
     // Obtenemos el vehículo correspondiente a partir del ID proporcionado
-    //$vehiculo = Vehiculo::findOrFail($request->$id);
+    $vehiculo = Vehiculo::findOrFail($request->id);
 
     // Creamos un nuevo pedido con los datos proporcionados
     $pedido = new Pedido();
     $pedido->id_user = $request->user()->id;
     $pedido->id_cliente = $request->user()->id;
-    $pedido->id_vehiculo = $request->id_vehiculo;
-    $pedido->ubicacion = $request->ubicacion;
-    $pedido->detalle = $request->detalle;
+    $pedido->id_vehiculo = $vehiculo->id;
+    $pedido->ubicacion = $validatedData['ubicacion'];
+    $pedido->detalle = $validatedData['detalle'];
     $pedido->estado = 'espera';
     $pedido->save();
 
     // Devolvemos un mensaje de éxito y el ID del nuevo pedido
-    return $pedido;
+    return ('Pedido creado correctamente');
 }
 
     public function show($id)

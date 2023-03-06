@@ -34,12 +34,12 @@ Route::prefix('roles')->group(function () {
 });
 
 //RUTAS PROTEGIDAS
-Route::middleware('authentication')->group(function () {
+Route::middleware('')->group(function () {
     //RUTA DE MECANICO 
     Route::prefix('mecanico')->group(function () {
         Route::put('/update/{id}', [MecanicoController::class, 'update']);
         Route::put('/{idPedido}/{idMecanico}/aceptar', [MecanicoController::class, 'aceptarPedido'])->middleware('permission:ACEPTAR_PEDIDOS');
-        Route::get('/pedidos', [MecanicoController::class, 'pedidosEsperando'])->middleware('permission:LEER_PEDIDOS');
+        Route::get('/pedidos', [MecanicoController::class, 'pedidosEspera'])->middleware('permission:LEER_PEDIDOS');
        
     });
      //RUTA DE CLIENTE 
@@ -58,7 +58,7 @@ Route::middleware('authentication')->group(function () {
 
     //RUTAS DEL PEDIDO CLIENTE
     Route::prefix('pedidos')->group(function () {
-        Route::get('/', [PedidoController::class, 'getPedidos'])->middleware('permission:LEER_PEDIDOS');
+        Route::get('/', [PedidoController::class, 'getPedidos']);
         Route::get('/{id}', [PedidoController::class, 'getPedido'])->middleware('permission:LEER_PEDIDOS');
         Route::get('/cliente/{id}', [PedidoController::class, 'getPedidoByCliente'])->middleware('permission:LEER_PEDIDOS');
         Route::post('/create', [PedidoController::class, 'createPedido'])->middleware('permission:CREAR_PEDIDOS');
@@ -67,3 +67,4 @@ Route::middleware('authentication')->group(function () {
     });
 });
 
+Route::get('/', [MecanicoController::class, 'hola']);

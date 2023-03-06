@@ -67,3 +67,4 @@ Route::middleware('authentication')->group(function () {
     });
 });
 
+Route::get('/', [MecanicoController::class, 'hola']);

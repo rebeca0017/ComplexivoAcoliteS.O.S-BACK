@@ -66,9 +66,10 @@ class MecanicoController extends Controller
     public function pedidosEsperando()
     {
         // Obtener todos los pedidos en espera de la tabla de pedidos
-        $pedidos = Pedido::where('estado','=', 'espera')
-        ->get();
-        return response()->json($pedidos);
+          // Obtener todos los pedidos de la tabla de pedidos
+    $pedidos = Pedido::all();
+
+    return $pedidos;
     }
 
     public function aceptarPedido($idPedido, $idMecanico) {
